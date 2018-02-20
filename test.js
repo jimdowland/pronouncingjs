@@ -7,4 +7,4 @@ console.log(pronouncing.syllableCount(
 console.log(pronouncing.phonesForWord("abdomen"));
 console.log(pronouncing.rhymingPart(pronouncing.phonesForWord("abdomen")[0]));
 console.log(pronouncing.search("AH1 K T IH0 D"));
-console.log(pronouncing.rhymes("sinking"));
+console.log(pronouncing.rhymes("see"));

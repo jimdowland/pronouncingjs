@@ -66,8 +66,9 @@ function search(pattern) {
       re = pattern;
   }
   else {
-    var re = new RegExp("\\b" + pattern + "\\b");
+    var re = new RegExp(pattern);
   }
+  console.log(re);
   _.each(pronunciations, function(item) {
     var word = item[0];
     var phones = item[1];
@@ -96,7 +97,7 @@ function rhymes(word) {
   var allPhones = phonesForWord(word);
   _.each(allPhones, function(phonesStr) {
     var part = rhymingPart(phonesStr);
-    var rhymes = search(part + "$");
+    var rhymes = search(part);
     allRhymes.push.apply(allRhymes, rhymes);
   });
   return _.filter(allRhymes, function(r) { return r != word; });
