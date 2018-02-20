@@ -1,6 +1,12 @@
 'use strict';
 var _ = require('underscore');
 var fs = require('fs');
+var pronunciations
+
+function init(str){
+  pronunciations = parseCMU(
+    fs.readFileSync(__dirname + str, {encoding: 'utf8'}));
+}
 
 function parseCMU(str) {
   var pronunciations = [];
@@ -16,8 +22,7 @@ function parseCMU(str) {
   return pronunciations;
 }
 
-var pronunciations = parseCMU(
-    fs.readFileSync(__dirname + "/cmudict-0.7b", {encoding: 'utf8'}));
+
 
 function syllableCount(phones) {
   return _.reduce(
@@ -103,6 +108,7 @@ function stresses(s) {
 
 
 module.exports = {
+  init: init,
   parseCMU: parseCMU,
   syllableCount: syllableCount,
   phonesForWord: phonesForWord,
