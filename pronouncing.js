@@ -1,9 +1,11 @@
 'use strict';
 var _ = require('underscore');
 var fs = require('fs');
-var pronunciations
+var pronunciations;
+var surface;
 
-function init(str){
+function init(str,thesurface){
+  surface = thesurface;
   pronunciations = parseCMU(
     fs.readFileSync(__dirname + str, {encoding: 'utf8'}));
 }
@@ -62,18 +64,22 @@ function rhymingPart(phones) {
  */
 function search(pattern) {
   var matches = [];
+  var phonesList = [];
   if (pattern instanceof RegExp) {
       re = pattern;
   }
   else {
     var re = new RegExp(pattern);
   }
-  console.log(re);
   _.each(pronunciations, function(item) {
     var word = item[0];
     var phones = item[1];
-    if (phones.match(re)) {
+    if (phones.match(re) && surface=="screen") {
       matches.push(word);
+    }
+    if (phones.match(re) && surface=="no_screen" &&  ! phonesList.includes(phones)) {
+      matches.push(word);
+      phonesList.push(phones);
     }
   });
   return matches;
